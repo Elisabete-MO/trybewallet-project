@@ -44,6 +44,34 @@ class WalletForm extends Component {
             name="selectCurrencies"
           />
         </label>
+        <label htmlFor="selectPayment">
+          Método de Pagamento:
+          <select
+            aria-label="Payment"
+            className="selectPayment"
+            data-testid="method-input"
+            name="selectPayment"
+          >
+            <option value="Cartão de débito">Cartão de débito</option>
+            <option value="Cartão de crédito">Cartão de crédito</option>
+            <option value="Dinheiro">Dinheiro</option>
+          </select>
+        </label>
+        <label htmlFor="selectTag">
+          Categoria:
+          <select
+            aria-label="categoria"
+            className="selectTag"
+            data-testid="tag-input"
+            name="selectTag"
+          >
+            <option value="Alimentacao">Alimentação</option>
+            <option value="Lazer">Lazer</option>
+            <option value="Trabalho">Trabalho</option>
+            <option value="Transporte">Transporte</option>
+            <option value="Saude">Saúde</option>
+          </select>
+        </label>
         <label htmlFor="inputDescription">
           Descrição:
           <input
@@ -55,6 +83,7 @@ class WalletForm extends Component {
           // onChange={ this.handleChange }
           />
         </label>
+
       </main>
     );
   }
