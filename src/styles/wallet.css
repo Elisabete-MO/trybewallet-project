@@ -1,11 +1,12 @@
 .container_wallet {
-  border: solid 2px purple;
+  align-items: center;
   display: flex;
+  flex-flow: column wrap;
   height: 99%;
   left: 0;
   position: absolute;
   top: 0;
-  width: 99.7%;
+  width: 99.4%;
 }
 
 /* align-items: center; */
