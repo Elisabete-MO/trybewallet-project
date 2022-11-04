@@ -18,7 +18,28 @@ input , select {
   box-shadow: 0 0 26px rgba(59, 59, 59, 0.8);
   color: #003be5;
   font-size: 14px;
-  margin: 5px;
+  margin: 8px;
+}
+
+.btnSave {
+  background: rgba(0, 57, 230, 0.5);
+  border-radius: 100px;
+  box-shadow: 0 0 26px rgba(24, 24, 75, 0.8);
+  color: white;
+  height: 30px;
+  letter-spacing: 0.03em;
+  line-height: 14px;
+  margin: 29px;
   padding-left: 7px;
-  width: 25%;
+  text-align: center;
+  transition-duration: 0.4s;
+  width: 12%;
+}
+
+.btnSave:hover {
+  background-color: rgba(200, 0, 0, 0.5);
+}
+
+.btnSave:disabled {
+  background-color: rgba(31, 30, 30, 0.5);
 }

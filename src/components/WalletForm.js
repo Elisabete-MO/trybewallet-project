@@ -1,10 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchCurrencies } from '../redux/actions';
+import { fetchCurrencies, fetchExpenses } from '../redux/actions';
 import '../styles/wallet_form.css';
 
 class WalletForm extends Component {
+  state = {
+    id: 0,
+    value: 0,
+    currency: 'USD',
+    method: 'Cartão de débito',
+    tag: 'Alimentação',
+    description: '',
+  };
+
   async componentDidMount() {
     const { dispatch } = this.props;
     await dispatch(fetchCurrencies());
@@ -18,7 +27,28 @@ class WalletForm extends Component {
     }
   }
 
+  handleChange = ({ target }) => {
+    const { name, value } = target;
+    this.setState({ [name]: value });
+  };
+
+  clearData = () => {
+    this.setState({
+      value: 0,
+      currency: 'USD',
+      method: 'Cartão de débito',
+      tag: 'Alimentação',
+      description: '',
+    });
+  };
+
+  // addTodo(todo) {
+  //   this.setState((state) => ({ listTodo: [...state.listTodo, todo] }));
+  // }
+
   render() {
+    const { value, currency, method, tag, description, id } = this.state;
+    const { dispatch } = this.props;
     return (
       <main className="box_form">
         <label htmlFor="inputValue">
@@ -27,12 +57,13 @@ class WalletForm extends Component {
             type="number"
             className="inputValue"
             data-testid="value-input"
-            name="inputValue"
+            id="inputValue"
+            name="value"
             placeholder="0.00"
             prefix="$"
             step={ 0.05 }
-          // value="0.00"
-          // onChange={ this.handleChange }
+            value={ value }
+            onChange={ this.handleChange }
           />
         </label>
         <label htmlFor="selectCurrencies">
@@ -41,7 +72,10 @@ class WalletForm extends Component {
             aria-label="Moeda"
             className="selectCurrencies"
             data-testid="currency-input"
-            name="selectCurrencies"
+            id="selectCurrencies"
+            name="currency"
+            value={ currency }
+            onChange={ this.handleChange }
           />
         </label>
         <label htmlFor="selectPayment">
@@ -50,7 +84,10 @@ class WalletForm extends Component {
             aria-label="Payment"
             className="selectPayment"
             data-testid="method-input"
-            name="selectPayment"
+            id="selectPayment"
+            name="method"
+            value={ method }
+            onChange={ this.handleChange }
           >
             <option value="Cartão de débito">Cartão de débito</option>
             <option value="Cartão de crédito">Cartão de crédito</option>
@@ -62,8 +99,11 @@ class WalletForm extends Component {
           <select
             aria-label="categoria"
             className="selectTag"
+            id="selectTag"
             data-testid="tag-input"
-            name="selectTag"
+            name="tag"
+            value={ tag }
+            onChange={ this.handleChange }
           >
             <option value="Alimentacao">Alimentação</option>
             <option value="Lazer">Lazer</option>
@@ -78,12 +118,24 @@ class WalletForm extends Component {
             type="text"
             className="inputDescription"
             data-testid="description-input"
-            name="inputDescription"
-          // value="0.00"
-          // onChange={ this.handleChange }
+            id="inputDescription"
+            name="description"
+            value={ description }
+            onChange={ this.handleChange }
           />
         </label>
-
+        <button
+          type="button"
+          className="btnSave"
+          onClick={ () => {
+            this.setState({ id: id + 1 });
+            dispatch(fetchExpenses(this.state));
+            this.clearData();
+          } }
+          // disabled={ isBtnDisabled }
+        >
+          Adicionar despesa
+        </button>
       </main>
     );
   }

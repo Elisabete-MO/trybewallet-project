@@ -8,6 +8,20 @@ class Header extends Component {
     total: 0,
   };
 
+  // shouldComponentUpdate() {
+  //   const { base } = this.props;
+  //   console.log(base);
+  //   let sumExpense = 0;
+  //   let valueRate = 0;
+  //   base.forEach((b) => {
+  //     const { value, currency, exchangeRates } = b;
+  //     const rate = exchangeRates[currency].ask;
+  //     valueRate = (value * rate);
+  //   });
+  //   sumExpense = (sumExpense + valueRate).toFixed(2);
+  //   this.setState({ total: sumExpense });
+  // }
+
   render() {
     const { total } = this.state;
     const { email } = this.props;
@@ -30,15 +44,26 @@ class Header extends Component {
 }
 
 const mapStateToProps = (state) => ({
+  base: state.wallet.expenses,
   email: state.user.email,
 });
 
 Header.propTypes = {
   email: PropTypes.string,
+  // base: PropTypes.arrayOf(PropTypes.shape({
+  //   value: PropTypes.string,
+  //   currency: PropTypes.string,
+  //   exchangeRates: PropTypes.shape(PropTypes.string),
+  // })),
 };
 
 Header.defaultProps = {
   email: 'alguem@alguem.com',
+  // base: [{
+  //   value: '',
+  //   currency: '',
+  //   exchangeRates: {},
+  // }],
 };
 
 export default connect(mapStateToProps)(Header);
