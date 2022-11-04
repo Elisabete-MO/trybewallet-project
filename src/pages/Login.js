@@ -44,7 +44,7 @@ class Login extends Component {
           <h1 className="h1login">TrybeWallet</h1>
           <label htmlFor="inputLogin">
             <input
-              type="text"
+              type="email"
               className="inputLogin"
               data-testid="email-input"
               name="email"

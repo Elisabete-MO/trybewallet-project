@@ -14,7 +14,7 @@ describe('Teste a página <Login.js />', () => {
 
   const dataId = 'email-input';
   const dataPwd = 'password-input';
-  const dataBtn = 'login-submit-button';
+  const dataEmail = 'test@mail.com';
 
   test('Teste se a página contém um campo do tipo "email" para inserir o email', () => {
     renderWithRouterAndRedux(<App />);
@@ -32,12 +32,21 @@ describe('Teste a página <Login.js />', () => {
     expect(loginPassword).toHaveAttribute('type', 'password');
   });
 
+  test('Teste se a página contém um botão com título "ENTRAR"', () => {
+    renderWithRouterAndRedux(<App />);
+
+    const loginBtn = screen.getByRole('button');
+    expect(loginBtn).toBeInTheDocument();
+    expect(loginBtn).toHaveAttribute('type', 'button');
+    expect(loginBtn.innerHTML).toBe('ENTRAR');
+  });
+
   test('Passar dados válidos para testar se o botão "Entrar" fica habilitado', () => {
     renderWithRouterAndRedux(<App />);
 
     const loginEmail = screen.getByTestId(dataId);
-    userEvent.type(loginEmail, 'test@mail.com');
-    expect(loginEmail).toHaveValue('test@mail.com');
+    userEvent.type(loginEmail, dataEmail);
+    expect(loginEmail).toHaveValue(dataEmail);
 
     const loginPassword = screen.getByTestId(dataPwd);
     userEvent.type(loginPassword, '123456');
@@ -60,5 +69,31 @@ describe('Teste a página <Login.js />', () => {
 
     const loginBtn = screen.getByRole('button');
     expect(loginBtn).not.toBeEnabled();
+  });
+
+  test('Passar dados válidos para testar se o email vai para o estado global', () => {
+    const { store, history } = renderWithRouterAndRedux(
+      <App />,
+      { initialState: { user: { email: dataEmail } } },
+    );
+
+    const loginEmail = screen.getByTestId(dataId);
+    userEvent.type(loginEmail, dataEmail);
+    expect(loginEmail).toHaveValue(dataEmail);
+
+    const loginPassword = screen.getByTestId(dataPwd);
+    userEvent.type(loginPassword, '123456');
+    expect(loginPassword).toHaveValue('123456');
+
+    const loginBtn = screen.getByRole('button');
+    expect(loginBtn).toBeEnabled();
+    userEvent.click(loginBtn);
+
+    const estadoGlobal = store.getState();
+    const { user: { email } } = estadoGlobal;
+
+    expect(history.location.pathname).toBe('/carteira');
+
+    expect(email).toBe(dataEmail);
   });
 });
