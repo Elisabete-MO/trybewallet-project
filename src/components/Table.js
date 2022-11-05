@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { fetchCurrencies, fetchExpenses } from '../redux/actions';
+// import PropTypes from 'prop-types';
+// import { fetchCurrencies, fetchExpenses } from '../redux/actions';
 import '../styles/table.css';
 
 class Table extends Component {
@@ -20,7 +20,7 @@ class Table extends Component {
             <th id="thRate">Câmbio utilizado</th>
             <th id="thConvertion">Valor convertido</th>
             <th id="thCurrencyConvertion">Moeda de conversão</th>
-            <th id="thEdit">Editar/Excluir.</th>
+            <th id="thEdit">Editar/Excluir</th>
           </tr>
         </thead>
         <tbody>
