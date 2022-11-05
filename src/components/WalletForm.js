@@ -42,10 +42,6 @@ class WalletForm extends Component {
     });
   };
 
-  // addTodo(todo) {
-  //   this.setState((state) => ({ listTodo: [...state.listTodo, todo] }));
-  // }
-
   render() {
     const { value, currency, method, tag, description, id } = this.state;
     const { dispatch } = this.props;

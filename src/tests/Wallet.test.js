@@ -8,6 +8,7 @@ import Wallet from '../pages/Wallet';
 describe('Teste a página <Wallet.js />', () => {
   const walletMethod = 'Cartão de débito';
   const walletDataDescription = 'Vencimento dia 11';
+  const walletDataTag = 'Alimentação';
 
   it('Teste se a página renderiza corretamente o componente "Header"', () => {
     renderWithRouterAndRedux(<Wallet />);
@@ -58,7 +59,7 @@ describe('Teste a página <Wallet.js />', () => {
     expect(walletTag).toBeInTheDocument();
     const walletTagText = screen.getByLabelText('Categoria:');
     expect(walletTagText).toBeInTheDocument();
-    expect(screen.getByText('Alimentação')).toBeInTheDocument();
+    expect(screen.getByText(walletDataTag)).toBeInTheDocument();
     expect(screen.getByText('Lazer')).toBeInTheDocument();
     expect(screen.getByText('Trabalho')).toBeInTheDocument();
     expect(screen.getByText('Transporte')).toBeInTheDocument();
@@ -90,8 +91,8 @@ describe('Teste a página <Wallet.js />', () => {
         id: '0',
         value: 11,
         currency: 'USD',
-        method: 'Cartão de débito',
-        tag: 'Alimentação',
+        method: walletMethod,
+        tag: walletDataTag,
         description: walletDataDescription,
         exchangeRates: mockData,
       } } } },
@@ -133,8 +134,8 @@ describe('Teste a página <Wallet.js />', () => {
     expect(id).toBe('0');
     expect(value).toBe(11);
     expect(currency).toBe('USD');
-    expect(method).toBe('Cartão de débito');
-    expect(tag).toBe('Alimentação');
+    expect(method).toBe(walletMethod);
+    expect(tag).toBe(walletDataTag);
     expect(description).toBe(walletDataDescription);
     expect(exchangeRates).toBe(mockData);
   });

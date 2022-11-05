@@ -1,13 +1,13 @@
-.box_form {
-  align-items: center;
+.box_table {
+  /* align-items: center; */
   background: rgba(238, 236, 236, 0.945);
-  border-radius: 20px 20px 0 0;
+  border: 2px solid purple;
+  border-radius: 0 0 20px 20px;
   box-shadow: 0 0 25px rgba(238, 236, 236, 0.9);
-  display: flex;
-  flex-flow: row nowrap;
-  height: 15%;
-  justify-content: space-around;
-  margin-top: -1.5%;
+  /* display: flex; */
+  /* flex-flow: row nowrap; */
+  height: 65%;
+  /* justify-content: space-around; */
   text-align: center;
   width: 95%;
 }

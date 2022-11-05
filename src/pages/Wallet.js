@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 // import { addEmailAction } from '../redux/actions';
 import Header from '../components/Header';
 import WalletForm from '../components/WalletForm';
+import Table from '../components/Table';
 import '../styles/wallet.css';
 
 class Wallet extends Component {
@@ -12,6 +13,7 @@ class Wallet extends Component {
       <div className="container_wallet">
         <Header />
         <WalletForm />
+        <Table />
       </div>
     );
   }
