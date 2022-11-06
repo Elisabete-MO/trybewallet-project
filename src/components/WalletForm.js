@@ -44,7 +44,7 @@ class WalletForm extends Component {
 
   render() {
     const { value, currency, method, tag, description, id } = this.state;
-    const { dispatch } = this.props;
+    const { dispatch, expenses } = this.props;
     return (
       <main className="box_form">
         <label htmlFor="inputValue">
@@ -57,7 +57,7 @@ class WalletForm extends Component {
             name="value"
             placeholder="0.00"
             prefix="$"
-            step={ 0.05 }
+            step={ 0.01 }
             value={ value }
             onChange={ this.handleChange }
           />
@@ -124,11 +124,10 @@ class WalletForm extends Component {
           type="button"
           className="btnSave"
           onClick={ () => {
-            this.setState({ id: id + 1 });
+            this.setState({ id: (expenses.length + 1) });
             dispatch(fetchExpenses(this.state));
             this.clearData();
           } }
-          // disabled={ isBtnDisabled }
         >
           Adicionar despesa
         </button>
@@ -137,12 +136,14 @@ class WalletForm extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  currencies: state.wallet.currencies,
+const mapStateToProps = ({ wallet: { currencies, expenses } }) => ({
+  currencies,
+  expenses,
 });
 
 WalletForm.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.string),
+  expenses: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   dispatch: PropTypes.func.isRequired,
 };
 

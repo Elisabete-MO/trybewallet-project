@@ -4,26 +4,21 @@ import PropTypes from 'prop-types';
 import '../styles/header.css';
 
 class Header extends Component {
-  state = {
-    total: 0,
+  totalSum = () => {
+    const { expenses } = this.props;
+    console.log(expenses);
+    let sumExpense = 0;
+    let valueRate = 0;
+    expenses.forEach((b) => {
+      const { value, currency, exchangeRates } = b;
+      const rate = exchangeRates[currency].ask;
+      valueRate = (value * rate);
+      sumExpense += valueRate;
+    });
+    return (sumExpense).toFixed(2);
   };
 
-  // shouldComponentUpdate() {
-  //   const { base } = this.props;
-  //   console.log(base);
-  //   let sumExpense = 0;
-  //   let valueRate = 0;
-  //   base.forEach((b) => {
-  //     const { value, currency, exchangeRates } = b;
-  //     const rate = exchangeRates[currency].ask;
-  //     valueRate = (value * rate);
-  //   });
-  //   sumExpense = (sumExpense + valueRate).toFixed(2);
-  //   this.setState({ total: sumExpense });
-  // }
-
   render() {
-    const { total } = this.state;
     const { email } = this.props;
     return (
       <header className="box_header">
@@ -34,7 +29,8 @@ class Header extends Component {
             className="total_header"
             data-testid="total-field"
           >
-            {`Despesa Total: ${total}`}
+            Despesa Total:
+            { this.totalSum() }
           </h3>
           <h3 className="currency_header" data-testid="header-currency-field">BRL</h3>
         </div>
@@ -44,17 +40,13 @@ class Header extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  base: state.wallet.expenses,
+  expenses: state.wallet.expenses,
   email: state.user.email,
 });
 
 Header.propTypes = {
   email: PropTypes.string,
-  // base: PropTypes.arrayOf(PropTypes.shape({
-  //   value: PropTypes.string,
-  //   currency: PropTypes.string,
-  //   exchangeRates: PropTypes.shape(PropTypes.string),
-  // })),
+  expenses: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
 };
 
 Header.defaultProps = {

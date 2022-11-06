@@ -22,7 +22,7 @@ const wallet = (state = INITIAL_STATE, action) => {
       expenses: [
         ...state.expenses,
         { id: payload.id,
-          value: payload.value,
+          value: parseFloat(payload.value),
           currency: payload.currency,
           method: payload.method,
           tag: payload.tag,
