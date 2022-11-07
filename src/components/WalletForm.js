@@ -7,7 +7,7 @@ import '../styles/wallet_form.css';
 class WalletForm extends Component {
   state = {
     id: 0,
-    value: 0,
+    value: '',
     currency: 'USD',
     method: 'Cartão de débito',
     tag: 'Alimentação',
@@ -21,7 +21,7 @@ class WalletForm extends Component {
     const select = document.querySelector('.selectCurrencies');
     if (currencies.length !== select.options.length) {
       currencies.forEach((element) => {
-        const option = new Option(element, element.toLowerCase());
+        const option = new Option(element);
         select.options[select.options.length] = option;
       });
     }
@@ -30,11 +30,12 @@ class WalletForm extends Component {
   handleChange = ({ target }) => {
     const { name, value } = target;
     this.setState({ [name]: value });
+    console.log(this.state);
   };
 
   clearData = () => {
     this.setState({
-      value: 0,
+      value: '',
       currency: 'USD',
       method: 'Cartão de débito',
       tag: 'Alimentação',
@@ -43,7 +44,7 @@ class WalletForm extends Component {
   };
 
   render() {
-    const { value, currency, method, tag, description, id } = this.state;
+    const { value, currency, method, tag, description } = this.state;
     const { dispatch, expenses } = this.props;
     return (
       <main className="box_form">
@@ -56,8 +57,6 @@ class WalletForm extends Component {
             id="inputValue"
             name="value"
             placeholder="0.00"
-            prefix="$"
-            step={ 0.01 }
             value={ value }
             onChange={ this.handleChange }
           />
@@ -85,8 +84,8 @@ class WalletForm extends Component {
             value={ method }
             onChange={ this.handleChange }
           >
-            <option value="Cartao de debito">Cartão de débito</option>
-            <option value="Cartao de credito">Cartão de crédito</option>
+            <option value="Cartão de débito">Cartão de débito</option>
+            <option value="Cartão de crédito">Cartão de crédito</option>
             <option value="Dinheiro">Dinheiro</option>
           </select>
         </label>

@@ -16,11 +16,16 @@ tbody {
   vertical-align: top;
 }
 
-/* tbody tr:hover {
-  background-color: rgba(200, 0, 0, 0.5);
-} */
-
 th , td , tr {
   border-bottom: 1px solid #ddd;
   padding: 3px;
 }
+
+tbody tr:hover {
+  background-color: rgba(200, 0, 0, 0.5);
+}
+
+button:hover {
+  background-color: rgba(200, 0, 0, 0.5);
+}
+

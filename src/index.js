@@ -10,13 +10,13 @@ import * as serviceWorker from './serviceWorker';
 ReactDOM
   .createRoot(document.getElementById('root'))
   .render(
-    <React.StrictMode>
-      <BrowserRouter>
-        <Provider store={ store }>
-          <App />
-        </Provider>
-      </BrowserRouter>
-    </React.StrictMode>,
+    // <React.StrictMode>
+    <BrowserRouter>
+      <Provider store={ store }>
+        <App />
+      </Provider>
+    </BrowserRouter>,
+    // </React.StrictMode>,
   );
 
 // If you want your app to work offline and load faster, you can change

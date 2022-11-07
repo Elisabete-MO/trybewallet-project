@@ -5,6 +5,11 @@ import TableContent from './TableContent';
 import '../styles/table.css';
 
 class Table extends Component {
+  handleDelete = (expenseId) => {
+    const { dispatch } = this.props;
+    dispatch(deleteExpense(expenseId));
+  };
+
   render() {
     const { expenses } = this.props;
     return (
@@ -40,6 +45,7 @@ const mapStateToProps = ({ wallet: { expenses } }) => ({
 
 Table.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps)(Table);
