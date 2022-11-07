@@ -30,7 +30,6 @@ class WalletForm extends Component {
   handleChange = ({ target }) => {
     const { name, value } = target;
     this.setState({ [name]: value });
-    console.log(this.state);
   };
 
   clearData = () => {

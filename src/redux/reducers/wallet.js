@@ -37,7 +37,7 @@ const wallet = (state = INITIAL_STATE, action) => {
   case DEL_EXPENSES:
     return { ...state,
       expenses: state.expenses.length === 1 ? INITIAL_STATE.expenses : state.expenses
-        .filter((expense) => (expense.id !== payload)),
+        .filter((expense) => (expense.id !== Number(payload))),
     };
   default:
     return state;

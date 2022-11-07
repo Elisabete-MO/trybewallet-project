@@ -27,10 +27,9 @@ export const addExpenses = (payload, moedas) => ({
   moedas,
 });
 
-export const deleteExpenses = (payload, moedas) => ({
+export const deleteExpenses = (payload) => ({
   type: DEL_EXPENSES,
   payload,
-  moedas,
 });
 
 export const fetchExpenses = (payload) => async (dispatch) => {

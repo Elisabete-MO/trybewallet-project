@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { deleteExpenses } from '../redux/actions';
 import '../styles/table_content.css';
 
 class TableContent extends Component {
+  handleDelete = ({ target }) => {
+    const { dispatch } = this.props;
+    dispatch(deleteExpenses(target.id));
+  };
+
   render() {
     const { expense } = this.props;
     const { currency, value, id, description, tag, method, exchangeRates } = expense;
     return (
       <tr id={ id }>
-        { console.log(exchangeRates[currency].ask, exchangeRates[currency].name) }
         <td>{ description }</td>
         <td>{ tag }</td>
         <td>{ method }</td>
@@ -30,7 +35,16 @@ class TableContent extends Component {
           }
         </td>
         <td>Real</td>
-        <td><button type="button" data-testid="delete-btn">Excluir</button></td>
+        <td>
+          <button
+            type="button"
+            data-testid="delete-btn"
+            id={ id }
+            onClick={ this.handleDelete }
+          >
+            Excluir
+          </button>
+        </td>
       </tr>
     );
   }
@@ -41,6 +55,7 @@ const mapStateToProps = ({ wallet: { expenses } }) => ({
 });
 
 TableContent.propTypes = {
+  dispatch: PropTypes.func.isRequired,
   expense: PropTypes.shape({
     description: PropTypes.string,
     method: PropTypes.string,
@@ -51,8 +66,5 @@ TableContent.propTypes = {
     id: PropTypes.number,
   }).isRequired,
 };
-// Table.defaultProps = {
-//   currencies: [],
-// };
 
 export default connect(mapStateToProps)(TableContent);

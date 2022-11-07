@@ -87,20 +87,20 @@ describe('Teste a página <Wallet.js />', () => {
   test('Testa se ao clicar no botão "Adicionar despesa" as informações da despesa são salvas no estado global', () => {
     const { store } = renderWithRouterAndRedux(
       <Wallet />,
-      { initialState: { wallet: { expenses: {
-        id: '0',
-        value: 11,
+      { initialState: { wallet: { expenses: [{
+        id: 0,
+        value: '11',
         currency: 'USD',
         method: walletMethod,
         tag: walletDataTag,
         description: walletDataDescription,
         exchangeRates: mockData,
-      } } } },
+      }] } } },
     );
 
     const walletValue = screen.getByTestId('value-input');
     expect(walletValue).toBeInTheDocument();
-    userEvent.type(walletValue, 11);
+    userEvent.type(walletValue, '11');
 
     const walletCurrency = screen.getByTestId('currency-input');
     expect(walletCurrency).toBeInTheDocument();
@@ -118,21 +118,20 @@ describe('Teste a página <Wallet.js />', () => {
     expect(walletDescription).toBeInTheDocument();
     userEvent.type(walletDescription, walletDataDescription);
 
-    const walletBtn = screen.getByRole('button');
-    userEvent.click(walletBtn);
+    const walletBtn = document.getElementsByClassName('btnSave');
+    userEvent.click(walletBtn[0]);
 
     const estadoGlobal = store.getState();
-    console.log(estadoGlobal);
-    const { wallet: { expenses: { id,
+    const { wallet: { expenses: [{ id,
       value,
       currency,
       method,
       tag,
       description,
-      exchangeRates } } } = estadoGlobal;
+      exchangeRates }] } } = estadoGlobal;
 
-    expect(id).toBe('0');
-    expect(value).toBe(11);
+    expect(id).toBe(0);
+    expect(value).toBe('11');
     expect(currency).toBe('USD');
     expect(method).toBe(walletMethod);
     expect(tag).toBe(walletDataTag);
