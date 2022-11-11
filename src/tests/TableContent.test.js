@@ -12,7 +12,7 @@ describe('Teste a página <TableContent.js />', () => {
   const tableDataCurrency = 'currency-input';
 
   test('Testa se ao clicar no botão "Adicionar despesa" as informações da despesa são apresentadas corretamente na tela', () => {
-    const { store } = renderWithRouterAndRedux(
+    renderWithRouterAndRedux(
       <Wallet />,
       { initialState: { wallet: { expenses: [{
         id: 0,
