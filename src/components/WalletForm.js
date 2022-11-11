@@ -17,14 +17,6 @@ class WalletForm extends Component {
   async componentDidMount() {
     const { dispatch } = this.props;
     await dispatch(fetchCurrencies());
-    const { currencies } = this.props;
-    const select = document.querySelector('.selectCurrencies');
-    if (currencies.length !== select.options.length) {
-      currencies.forEach((element) => {
-        const option = new Option(element);
-        select.options[select.options.length] = option;
-      });
-    }
   }
 
   handleChange = ({ target }) => {
@@ -44,7 +36,7 @@ class WalletForm extends Component {
 
   render() {
     const { value, currency, method, tag, description } = this.state;
-    const { dispatch, expenses } = this.props;
+    const { dispatch, expenses, currencies } = this.props;
     return (
       <main className="box_form">
         <label htmlFor="inputValue">
@@ -70,7 +62,12 @@ class WalletForm extends Component {
             name="currency"
             value={ currency }
             onChange={ this.handleChange }
-          />
+          >
+            { currencies.map((acc) => (
+              <option key={ acc } data-testid="currency" name={ acc }>
+                { acc }
+              </option>))}
+          </select>
         </label>
         <label htmlFor="selectPayment">
           Método de Pagamento:

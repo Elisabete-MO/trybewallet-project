@@ -15,9 +15,7 @@ class Header extends Component {
       valueRate = (value * rate);
       sumExpense += valueRate;
     });
-    if (Number.isNaN(sumExpense)) {
-      result = '0.00';
-    } else { result = (sumExpense).toFixed(2); }
+    result = (sumExpense).toFixed(2);
     return result;
   };
 

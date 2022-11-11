@@ -9,6 +9,7 @@ describe('Teste a página <WalletForm.js />', () => {
   const inputDataMethod = 'Cartão de débito';
   const inputDataDescription = 'Vencimento dia 11';
   const inputDataTag = 'Alimentação';
+  const inputDataCurrency = 'currency-input';
 
   test('se existem os componentes do WalletForm', () => {
     renderWithRouterAndRedux(<Wallet />);
@@ -18,7 +19,7 @@ describe('Teste a página <WalletForm.js />', () => {
     const inputValueText = screen.getByLabelText('Valor:');
     expect(inputValueText).toBeInTheDocument();
 
-    const inputCurrency = screen.getByTestId('currency-input');
+    const inputCurrency = screen.getByTestId(inputDataCurrency);
     expect(inputCurrency).toBeInTheDocument();
     const inputCurrencyText = screen.getByLabelText('Moeda:');
     expect(inputCurrencyText).toBeInTheDocument();
@@ -52,7 +53,13 @@ describe('Teste a página <WalletForm.js />', () => {
     expect(inputBtn.innerHTML).toBe('Adicionar despesa');
   });
 
-  test('Testa se ao clicar no botão "Adicionar despesa" as informações da despesa são salvas no estado global', () => {
+  // test('se o componente "Moeda" renderiza corretamente as moedas', async () => {
+  //   const currencies = (Object.keys(mockData));
+  //   const list = (await screen.findAllByTestId('currency'));
+  //   console.log(list[0]);
+  // });
+
+  test('se é possivel apagar um registro', async () => {
     const { store } = renderWithRouterAndRedux(
       <Wallet />,
       { initialState: { wallet: { expenses: [{
@@ -65,64 +72,29 @@ describe('Teste a página <WalletForm.js />', () => {
         exchangeRates: mockData,
       }] } } },
     );
-
     const inputValue = screen.getByTestId('value-input');
-    expect(inputValue).toBeInTheDocument();
-    userEvent.type(inputValue, 11);
+    userEvent.type(inputValue, '11');
 
     const inputCurrency = screen.getByTestId('currency-input');
-    expect(inputCurrency).toBeInTheDocument();
     userEvent.click(inputCurrency, 'USD');
 
     const inputPayment = screen.getByTestId('method-input');
-    expect(inputPayment).toBeInTheDocument();
     userEvent.click(inputPayment, inputDataMethod);
 
     const inputTag = screen.getByTestId('tag-input');
-    expect(inputTag).toBeInTheDocument();
-    userEvent.click(inputTag, inputDataTag);
+    userEvent.click(inputTag, 'Alimentação');
 
     const inputDescription = screen.getByTestId('description-input');
-    expect(inputDescription).toBeInTheDocument();
     userEvent.type(inputDescription, inputDataDescription);
 
-    const inputBtn = document.getElementsByClassName('btnSave');
-    userEvent.click(inputBtn[0]);
-
-    const estadoGlobal = store.getState();
-    const { wallet: { expenses: [{ id,
-      value,
-      currency,
-      method,
-      tag,
-      description,
-      exchangeRates }] } } = estadoGlobal;
-
-    expect(id).toBe(0);
-    expect(value).toBe('11');
-    expect(currency).toBe('USD');
-    expect(method).toBe(inputDataMethod);
-    expect(tag).toBe(inputDataTag);
-    expect(description).toBe(inputDataDescription);
-    expect(exchangeRates).toBe(mockData);
-  });
-
-  test('se é possivel modificar o valor dos componentes do WalletForm', async () => {
-    renderWithRouterAndRedux(<Wallet />);
-    const valueInput = screen.getByTestId(inputValue);
-    const descriptionInput = screen.getByTestId(inputDesc);
-    const submit = screen.getByRole('button');
-
-    userEvent.type(valueInput, '106.86');
-    userEvent.type(descriptionInput, 'Restaurante');
-    userEvent.click(submit);
-
-    const description = await screen.findByText('Restaurante');
-    const value = await screen.findByText('106.86');
-    expect(description).toBeInTheDocument();
-    expect(value).toBeInTheDocument();
+    const inputBtn = screen.getByText('Adicionar despesa');
+    userEvent.click(inputBtn);
 
     const deleteBtn = await screen.findAllByTestId('delete-btn');
     userEvent.click(deleteBtn[0]);
+    expect(deleteBtn[0]).not.toBeInTheDocument();
+
+    const estadoGlobal = store.getState();
+    expect(estadoGlobal).toStrictEqual({ user: { email: '' }, wallet: { expenses: [] } });
   });
 });
