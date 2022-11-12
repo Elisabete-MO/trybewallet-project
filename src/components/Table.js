@@ -13,7 +13,7 @@ class Table extends Component {
           <tr>
             <th id="thDescription">Descrição</th>
             <th id="thTag">Tag</th>
-            <th id="thMethod">Método de Pagamento</th>
+            <th id="thMethod">Método de pagamento</th>
             <th id="thValue">Valor</th>
             <th id="thCurrency">Moeda</th>
             <th id="thRate">Câmbio utilizado</th>
